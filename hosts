@@ -1,0 +1,5 @@
+[ubuntu_server]
+ubuntu ansible_host=3.92.23.30
+
+# [amazon_server]
+# amazon ansible_host=54.242.113.177

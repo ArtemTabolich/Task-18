@@ -1,0 +1,6 @@
+- name: Init Server
+  hosts: all
+  become: true
+
+  roles:
+    - zadanie

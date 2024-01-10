@@ -1,0 +1,13 @@
+---
+# tasks file for zadanie.yml
+#
+ - name: Generate config file
+   template: src=./config.j2 dest=/home/ubuntu/config.txt mode=0666
+
+ - name: print ip
+   debug: msg= "Ip {{ item }}"
+   loop:
+      - "1.1.1"
+      - "2.2.2"
+
+

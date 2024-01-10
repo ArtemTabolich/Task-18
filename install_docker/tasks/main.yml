@@ -1,0 +1,57 @@
+---
+# tasks file for install_docker
+#
+#Debian
+- block:   
+  - name: block debian - add docker gpg key 
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: block debian - add rep docker
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu focal stable
+      state: present
+      update_cache: true
+
+  - name: block debian - install apps
+    apt:
+      name:
+        - git
+        - python3-pip
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
+      state: present
+      update_cache: true
+  when: ansible_os_family == 'Debian'
+
+
+#RedHat
+- block: 
+  - name: block redhat - install apps
+    dnf: name=docker state=latest
+      
+  - name: Install git
+    dnf:
+      pkg:
+        - git
+        - python3-pip
+      state: latest
+      update_cache: true
+      
+  - name: remove package
+    dnf:
+      name: python3-requests
+      state: absent
+
+  - name: install python modules
+    pip:
+      name:
+        - docker
+      state: latest
+      extra_args: "--force-reinstall"
+
+  when: ansible_os_family == 'RedHat'  
